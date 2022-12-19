@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Intro from "../components/Intro";
 import Stack from "../components/Stack";
 import Experience from "../components/Experience";
+import Portfolio from "../components/Portfolio";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -20,6 +21,9 @@ const IndexPage: React.FC<PageProps> = () => {
         <section id="experience" className="mb-24 max-w-7xl mx-auto">
           <Experience />
         </section>
+        <section id="portfolio" className="mb-24 max-w-7xl mx-auto">
+          <Portfolio />
+        </section>
       </main>
     </div>
   );
@@ -27,4 +31,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC = () => <title>David Avikasis - CV</title>;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as SimpleIcons from "react-icons/si";
 import { tokenize } from "../utils/stringUtils";
+import { setElementColor } from "../utils/domUtils";
 
 type StackItem = {
   key: string;
@@ -294,15 +295,17 @@ const Stack = (props: Props) => {
             {items.map((item) => (
               <div
                 key={item.key}
+                title={item.title}
+                data-color={item.color}
                 className={
-                  "col-span-1  items-center transition duration-200 text-black z-10"
+                  "tooltip col-span-1 items-center transition duration-200 text-black z-10"
                 }
                 onMouseEnter={(event) => {
                   // Forced to use js events instead of tailwind's hover:text-[#color] since it seems not to support dynamic colors
-                  setColor(event.currentTarget as HTMLElement, item.color);
+                  setElementColor(event.currentTarget as HTMLElement);
                 }}
                 onMouseLeave={(event) => {
-                  setColor(event.currentTarget as HTMLElement, "black");
+                  setElementColor(event.currentTarget as HTMLElement, "black");
                 }}
               >
                 {React.createElement((SimpleIcons as any)[item.icon], {
@@ -316,10 +319,6 @@ const Stack = (props: Props) => {
       </div>
     </div>
   );
-};
-
-const setColor = (element: HTMLElement, color?: string) => {
-  if (element) (element as HTMLElement).style.color = color || "#00c1ff";
 };
 
 export default Stack;

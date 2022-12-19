@@ -12,9 +12,11 @@ const Intro = (props: Props) => {
           layout="constrained"
           src="../images/deddy-broadway.jpg"
           alt="It's me, David!"
+          title="It's me, David!"
         />
         <h1 className="text-5xl lg:text-7xl xl:text-8xl font-bold font-display">
-          Hi! I'm <span className="text-blue">David</span>, an
+          Hi! I'm <span className="text-blue">David</span>
+          , an
           <br />
           <span className="text-yellow">Ultra-FullStack</span>
           <br />
