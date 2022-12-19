@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400;700&family=Roboto+Mono:wght@100;200;400;600;700&family=Secular+One&family=Source+Sans+Pro:wght@200;400;700&display=swap");
