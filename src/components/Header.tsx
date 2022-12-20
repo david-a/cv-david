@@ -1,12 +1,23 @@
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import React from "react";
 
-type Props = {};
+type Props = {
+  selected: string;
+};
 
 const links = ["home", "stack", "experience", "portfolio", "contact"];
 
-const Header = (props: Props) => {
+const Header = ({ selected }: Props) => {
+  const verifiedSection = () => (selected === "intro" ? "home" : selected);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [selectedSection, setselectedSection] = React.useState(
+    verifiedSection()
+  );
+
+  React.useEffect(() => {
+    setselectedSection(verifiedSection());
+  }, [selected]);
+
   React.useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -17,6 +28,9 @@ const Header = (props: Props) => {
       }
     };
     window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 
   return (
@@ -28,8 +42,12 @@ const Header = (props: Props) => {
         <nav className="flex flex-row gap-2">
           {links.map((link) => (
             <AnchorLink
-              className="font-light text-base md:text-2xl hover:underline hover:font-normal"
+              className={
+                "font-light text-base md:text-2xl hover:underline hover:font-normal" +
+                (selectedSection === link ? " font-normal underline" : "")
+              }
               to={"/#" + link}
+              onAnchorLinkClick={() => setselectedSection(link)}
               key={link}
             >
               {link}

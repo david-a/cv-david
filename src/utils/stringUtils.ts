@@ -14,3 +14,8 @@ export const tokenize = (
 
   return str;
 };
+
+// a function which sanitizes a string to be used in dangerouslySetInnerHTML
+export const sanitizeString = (str: string) => {
+  return str.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+};

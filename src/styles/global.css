@@ -16,36 +16,60 @@
   transform: translateX(-50%);
   white-space: nowrap;
   background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  color: #ffffff;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   z-index: 10;
   display: none;
-}
-
-#stack .tooltip:before {
-  font-size: 1.2rem;
-  background: none;
-  color: black;
-  top: 100%;
-  bottom: auto;
-}
-
-#stack .tooltip:before {
-  font-size: 1.2rem;
-  background: none;
-  color: black;
-  top: 100%;
-  bottom: auto;
+  font-weight: 400;
 }
 
 .tooltip:hover:before {
   display: block;
 }
 
+#stack .tooltip:before {
+  font-size: 1.2rem;
+  background: none;
+  color: black;
+  top: 100%;
+  bottom: auto;
+}
+
 @media (hover: none) {
   .tooltip:before {
     display: block;
   }
+}
+
+/* macos window like div */
+.macos-window {
+  position: relative;
+  margin: 3em auto;
+  background: linear-gradient(
+    to bottom,
+    #e0e1e3 2.2rem,
+    #e0e1e3 2.2rem,
+    white 2.2rem,
+    white 100%
+  );
+  border: #e0e1e3 3px solid;
+  border-radius: 0.5em;
+  width: 100%;
+  padding: 0 0.7rem;
+}
+
+.macos-window:before {
+  content: "";
+  position: absolute;
+  height: 0.8rem;
+  width: 0.8rem;
+  margin-top: 0.5rem;
+  border-radius: 100%;
+
+  box-shadow: 1.4em 0em #ccc, 2.8em 0em #ccc;
+
+  background: #ed594a;
+  box-shadow: 1.4em 0em #fdd800, 2.8em 0em #5ac05a;
 }

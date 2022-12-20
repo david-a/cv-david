@@ -3,7 +3,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import { Indexable } from "../interfaces/Indexable";
 import { formatDateMonthYear, getDateDiff } from "../utils/datetimeUtils";
-import { objArrayToObject } from "../utils/objectUtils";
+import { objArrayToObject } from "../utils/arrayAndObjectUtils";
 import { tokenize } from "../utils/stringUtils";
 
 type ExperienceItem = {
@@ -115,8 +115,11 @@ const Experience = (props: Props) => {
         // WORK EXPERIENCE
       </h2>
       {items.map((item) => (
-        <div className="flex flex-wrap flex-row lg:grid lg:grid-cols-[2fr_0.5fr_6fr] items-center text-white  mb-20">
-          <div className="font-mono text-xl tracking-tight font-gray-light">
+        <div
+          key={item.key}
+          className="flex flex-wrap flex-row lg:grid lg:grid-cols-[2fr_0.5fr_6fr] items-center text-white  mb-20"
+        >
+          <div className="font-mono text-xl tracking-tight font-gray-dark">
             (
             <span className="text-yellow whitespace-nowrap">
               "{formatDateMonthYear(item.startDate)}"

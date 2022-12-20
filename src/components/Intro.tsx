@@ -31,6 +31,9 @@ const Intro = (props: Props) => {
         <span className="font-bold font-normal">
           I'm building web apps and systems from scratch to the user screen.
         </span>
+        {/* <a href={"assets/DavidAvikasisCV.pdf"} download>
+          Download CV
+        </a> */}
       </p>
     </>
   );

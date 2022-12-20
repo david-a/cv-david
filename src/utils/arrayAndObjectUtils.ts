@@ -4,3 +4,7 @@ export const objArrayToObject = (arr: [], key: string) => {
     return all;
   }, {});
 };
+
+export const chooseRandomElement = (arr: any[]) => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
