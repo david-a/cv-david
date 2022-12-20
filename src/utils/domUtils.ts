@@ -4,6 +4,10 @@ export const setElementColor = (element: HTMLElement, color?: string) => {
       color || element.getAttribute("data-color") || "#00c1ff";
 };
 
+export const enableVideoControls = (element: HTMLElement, enable = true) => {
+  if (element) (element as any).controls = enable;
+};
+
 export const getSectionId = (
   offset: number = 0,
   defaultSctionId: string = "home"

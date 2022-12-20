@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as SimpleIcons from "react-icons/si";
 import { tokenize } from "../utils/stringUtils";
-import { setElementColor } from "../utils/domUtils";
+import { enableVideoControls, setElementColor } from "../utils/domUtils";
 
 type StackItem = {
   key: string;
@@ -302,10 +302,13 @@ const Stack = (props: Props) => {
                 }
                 onMouseEnter={(event) => {
                   // Forced to use js events instead of tailwind's hover:text-[#color] since it seems not to support dynamic colors
-                  setElementColor(event.currentTarget as HTMLElement);
+                  enableVideoControls(event.currentTarget as HTMLElement);
                 }}
                 onMouseLeave={(event) => {
-                  setElementColor(event.currentTarget as HTMLElement, "black");
+                  enableVideoControls(
+                    event.currentTarget as HTMLElement,
+                    false
+                  );
                 }}
               >
                 {React.createElement((SimpleIcons as any)[item.icon], {

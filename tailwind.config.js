@@ -19,6 +19,15 @@ module.exports = {
           ...defaultTheme.fontFamily.serif,
         ],
       },
+      fontSize: {
+        "2xs": [
+          "0.5rem",
+          {
+            lineHeight: "0.75rem",
+            letterSpacing: "-0.01em",
+          },
+        ],
+      },
       colors: {
         blue: "#00c1ff",
         "blue-light": "#ddf7ff",
@@ -29,6 +38,7 @@ module.exports = {
         gray: "#8492a6",
         "gray-light": "#e0e1e3",
         "gray-dark": "#5b6371",
+        "gray-darker": "#383d45",
         dark: "#272c35",
         green: "#699655",
         purple: "#d371e3",

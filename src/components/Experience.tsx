@@ -83,7 +83,7 @@ const Experience = (props: Props) => {
       allFile(filter: { relativePath: { regex: "/^logos/" } }) {
         nodes {
           base
-          childrenImageSharp {
+          childImageSharp {
             gatsbyImageData(
               transformOptions: { fit: CONTAIN }
               layout: CONSTRAINED
@@ -103,9 +103,7 @@ const Experience = (props: Props) => {
       return {
         ...item,
         key: tokenize(item.title! + item.company!),
-        logo: getImage(
-          logos[item.logoFile!].childrenImageSharp[0].gatsbyImageData
-        ),
+        logo: getImage(logos[item.logoFile!].childImageSharp.gatsbyImageData),
       } as ExperienceItem;
     });
   };

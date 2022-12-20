@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { tokenize } from "../utils/stringUtils";
+import { isExternalVideo, tokenize } from "../utils/stringUtils";
 import * as SimpleIcons from "react-icons/si";
 import { Indexable } from "../interfaces/Indexable";
 import { PORTFOLIO_ART } from "../constants/portfolioArt";
-import { chooseRandomElement } from "../utils/arrayAndObjectUtils";
+import {
+  chooseRandomElement,
+  objArrayToObject,
+} from "../utils/arrayAndObjectUtils";
+import { graphql, useStaticQuery } from "gatsby";
+import { getImage } from "gatsby-plugin-image";
+import MediaPreview from "./MediaPreview";
+import Lightbox from "./Lightbox";
 
 type PortfolioItem = {
   key: string;
-  logo?: any;
   title: string;
+  subtitle?: string;
   liveUrl?: string;
   repoUrl?: string;
   repoIcon?: string;
   description: string;
   buzzwords: string[];
   keywords: string[];
-  previewImageFile: string;
-  previewVideoFile: string;
+  previewMediaFile: string;
+  preview?: any;
 };
 
 const ALL_ITEMS: Partial<PortfolioItem>[] = [
   {
-    title: "AORIKA Website",
+    title: "AORIKA - אֵאוֹרִיקָה",
+    subtitle: "Showcase of a local woodworking workshop",
     liveUrl: "https://aorika.co.il",
     // repoUrl: "https://github.com/david-a/aorika",
     // repoIcon: "SiGithub",
+    previewMediaFile: "https://www.youtube.com/embed/dghs8mvTueQ",
     description: `AORIKA is a local woodworking workshop, offering various wood workshops and products, for small and medium-sized groups. AORIKA's website showcases the range of workshops and services, a gallery of past workshops, and encourages the user to contact the owner.`,
     buzzwords: [
       "Angular 13",
@@ -48,10 +57,38 @@ const ALL_ITEMS: Partial<PortfolioItem>[] = [
     ],
   },
   {
-    title: "Cake DIY by Or & Kinamon",
+    title: "Headstream",
+    subtitle: "Smart eCommerce Portfolio Management (EPM)",
+    description: `Headstream is an eCommerce Portfolio Management (EPM), which optimizes inventory management and business decisions. We do this by employing stock market trading methods which are based on math, statistics, and advanced computer science algorithms, which allow us to provide real-time inventory insights and enable purchasing automation.`,
+    previewMediaFile: "headstream.png",
+    buzzwords: [
+      "Angular 13",
+      "Scully.io (Static Angular)",
+      "Javascript",
+      "TypeScript",
+      "SCSS",
+      "Google Analytics",
+    ],
+    keywords: [
+      "javascript",
+      "typescript",
+      "js",
+      "ts",
+      "frontend",
+      "angular",
+      "angular 13",
+      "scully.io",
+      "scss",
+      "google analytics",
+    ],
+  },
+  {
+    title: "Cake DIY - עוּגָה בְּהַרְכָּבָה",
+    subtitle: "Customize your cake",
     liveUrl: "https://david-a.github.io/kinamon",
     repoUrl: "https://github.com/david-a/kinamon",
     repoIcon: "SiGithub",
+    previewMediaFile: "cakesDIYScreenCapture.mov",
     description: `Cake DIY is a weekend project, an MVP, which allow cakes customization and orders from a boutique bakery named Or & Kinamon. It is both desktop and mobile ready and easily supports adding more ingredients.`,
     buzzwords: [
       "Vanilla JS",
@@ -75,46 +112,53 @@ const ALL_ITEMS: Partial<PortfolioItem>[] = [
       "google analytics",
     ],
   },
-  {
-    title: "AORIKA Website 3",
-    description: `AORIKA is a local woodworking workshop, offering various wood workshops and products, for small and medium-sized groups. AORIKA's website showcases the range of workshops and services, a gallery of past workshops, and encourages the user to contact the owner.`,
-    buzzwords: [
-      "Angular 13",
-      "Scully.io (Static Angular)",
-      "Javascript",
-      "TypeScript",
-      "SCSS",
-      "Google Analytics",
-    ],
-    keywords: [
-      "javascript",
-      "typescript",
-      "js",
-      "ts",
-      "frontend",
-      "angular",
-      "angular 13",
-      "scully.io",
-      "scss",
-      "google analytics",
-    ],
-  },
 ];
 
 type Props = {};
 
 const Portfolio = (props: Props) => {
+  const query = useStaticQuery(graphql`
+    {
+      allFile(filter: { relativePath: { regex: "/^projects/" } }) {
+        nodes {
+          base
+          childImageSharp {
+            gatsbyImageData
+          }
+          publicURL
+        }
+      }
+    }
+  `);
+  const previews: Indexable = objArrayToObject(query.allFile.nodes, "base");
+
   const [items, setItems] = useState<PortfolioItem[]>([]);
-  const [art, setArt] = useState(chooseRandomElement(PORTFOLIO_ART));
+  const [art] = useState(chooseRandomElement(PORTFOLIO_ART));
+
+  const [lightbox, setLightbox] = useState<string>();
+  const toggleLightbox = (contentId?: string) => () => setLightbox(contentId);
+
   useEffect(() => {
     setItems(fetchItems());
   }, []);
 
   const fetchItems = (): PortfolioItem[] => {
     return ALL_ITEMS.map((item) => {
+      const preview =
+        item.previewMediaFile &&
+        (isExternalVideo(item.previewMediaFile)
+          ? item.previewMediaFile
+          : (previews[item.previewMediaFile!]?.childImageSharp
+              ?.gatsbyImageData &&
+              getImage(
+                previews[item.previewMediaFile!]?.childImageSharp
+                  ?.gatsbyImageData
+              )) ||
+            previews[item.previewMediaFile!]?.publicURL);
       return {
         ...item,
         key: tokenize(item.title!),
+        preview,
       } as PortfolioItem;
     });
   };
@@ -122,10 +166,17 @@ const Portfolio = (props: Props) => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <div className="w-full bg-gray-light py-2">
-        <pre className="text-center font-mono pb-8">{art}</pre>
+        <pre className="text-center font-mono text-2xs md:text-xs 2xl:text-base overflow-x-auto pb-8">
+          {art}
+        </pre>
       </div>
       {/* div with tailwind css classes to look like a macos window */}
-      <div className="p-14 grid grid-cols-3 gap-4 font-sans font-light antialiased">
+      <div
+        className="p-14 grid gap-8 font-sans font-light antialiased w-full justify-center"
+        style={{
+          gridTemplateColumns: "repeat(auto-fill, minmax(550px, 1fr))",
+        }}
+      >
         {items.map((item) => {
           const Icon = (SimpleIcons as Indexable)[item.repoIcon!];
           return (
@@ -159,7 +210,32 @@ const Portfolio = (props: Props) => {
               <div className="mt-4">
                 <div className="">
                   <div>
-                    <h3 className="text-3xl font-semibold">{item.title}</h3>
+                    <div className="project-header mb-2">
+                      <h3 className="text-3xl text-red-light font-display">
+                        {item.title}
+                      </h3>
+                      {item.subtitle && (
+                        <h2 className="text-2xl text-gray font-normal">
+                          {item.subtitle}
+                        </h2>
+                      )}
+                    </div>
+                    {item.preview && (
+                      <>
+                        <div onClick={toggleLightbox(item.key)}>
+                          <MediaPreview url={item.preview} />
+                        </div>
+                        {lightbox === item.key && (
+                          <Lightbox
+                            key={item.key}
+                            handleClose={toggleLightbox()}
+                          >
+                            <MediaPreview url={item.preview} />
+                          </Lightbox>
+                        )}
+                      </>
+                    )}
+                    -----------------
                     <p className="text-xl">{item.description}</p>
                   </div>
                 </div>

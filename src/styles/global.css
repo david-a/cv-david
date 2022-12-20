@@ -38,7 +38,7 @@
 }
 
 @media (hover: none) {
-  .tooltip:before {
+  #stack .tooltip:before {
     display: block;
   }
 }
