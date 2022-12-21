@@ -311,7 +311,9 @@ const Stack = (props: Props) => {
             {items.map((item) => (
               <div
                 key={item.key}
-                title={item.title}
+                aria-label={item.title}
+                aria-describedby={item.title}
+                data-tooltip={item.title}
                 data-color={item.color}
                 className={
                   "tooltip col-span-1 items-center transition duration-100 text-black z-10"

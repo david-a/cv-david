@@ -269,7 +269,7 @@ const Trivia = () => {
                         className="opacity-70 hover:opacity-100 transition-opacity duration-200 text-[0.9em] mx-2 tooltip"
                         href={link.link}
                         target="_blank"
-                        title={"Open on " + getDomainFromUrl(link.link)}
+                        data-tooltip={"Open on " + getDomainFromUrl(link.link)}
                         aria-label={alt}
                         aria-describedby={alt}
                         onClick={confirmAction(

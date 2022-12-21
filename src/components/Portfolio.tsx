@@ -193,7 +193,7 @@ const Portfolio = (props: Props) => {
                     href={item.liveUrl}
                     target="_blank"
                     className="w-[70%] rounded bg-white px-2 tooltip"
-                    title="Check it out!"
+                    data-tooltip="Check it out!"
                     aria-label="Live website of this project"
                     aria-describedby="Go to the live site of this project"
                     onClick={confirmAction(
@@ -210,7 +210,7 @@ const Portfolio = (props: Props) => {
                     href={item.repoUrl}
                     target="_blank"
                     className="tooltip"
-                    title="Watch the Source Code"
+                    data-tooltip="Watch the Source Code"
                     aria-label="Source Code"
                     aria-describedby="Watch the Source Code"
                     onClick={confirmAction(

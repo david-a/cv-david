@@ -9,7 +9,7 @@
 }
 
 .tooltip:before {
-  content: attr(title);
+  content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -142,6 +142,7 @@
     line-height: 40.5px;
     padding: 0 120px;
   }
+
   .paper-content {
     gap: 40.5px;
   }
