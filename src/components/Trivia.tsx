@@ -1,6 +1,7 @@
 // A component which takes up a list of sentences in the form of {text, links?:[{text, link}]} and renders them as a list of sentences with links, in a trivia-card like designed container
 import React from "react";
-import { getColor, tokenize } from "../utils/stringUtils";
+import { confirmAction } from "../utils/domUtils";
+import { getColor, getDomainFromUrl, tokenize } from "../utils/stringUtils";
 
 type TriviaItem = {
   key: string;
@@ -262,13 +263,18 @@ const Trivia = () => {
                   {item.text}
                   {item.links.map((link) => {
                     const key = item.key + tokenize(link.text);
-                    console.log("key", key);
+                    const alt = "Link to " + link.text;
                     return (
                       <a
-                        className="opacity-70 hover:opacity-100 transition-opacity duration-300 text-[0.9em] mx-2"
+                        className="opacity-70 hover:opacity-100 transition-opacity duration-200 text-[0.9em] mx-2 tooltip"
                         href={link.link}
                         target="_blank"
-                        rel="noreferrer"
+                        title={"Open on " + getDomainFromUrl(link.link)}
+                        aria-label={alt}
+                        aria-describedby={alt}
+                        onClick={confirmAction(
+                          "This link will open an external website in a new tab. Are you sure?"
+                        )}
                         style={{
                           color:
                             link.color ||

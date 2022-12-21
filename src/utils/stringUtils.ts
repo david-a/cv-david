@@ -65,9 +65,14 @@ export const getYoutubeSrc = (urlRaw: string) => {
   );
 };
 
+export const getDomainFromUrl = (url: string) => {
+  const domain = url.split("/")[2];
+  return domain.includes("www.") ? domain.split("www.")[1] : domain;
+};
+
 export const getRepoPlatform = (url: string) => {
   // get the platform from the url
-  const platform = url.split("/")[2];
+  const platform = getDomainFromUrl(url);
   if (platform.includes("github")) return "GitHub";
   if (platform.includes("gitlab")) return "GitLab";
   if (platform.includes("bitbucket")) return "BitBucket";
