@@ -104,6 +104,7 @@ const Experience = (props: Props) => {
         ...item,
         key: tokenize(item.title! + item.company!),
         logo: getImage(logos[item.logoFile!].childImageSharp.gatsbyImageData),
+        keywords: item.keywords || [],
       } as ExperienceItem;
     });
   };

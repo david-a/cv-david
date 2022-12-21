@@ -1,7 +1,9 @@
+import { getColor } from "./stringUtils";
+
 export const setElementColor = (element: HTMLElement, color?: string) => {
   if (element)
     (element as HTMLElement).style.color =
-      color || element.getAttribute("data-color") || "#00c1ff";
+      color || element.getAttribute("data-color") || getColor("blue");
 };
 
 export const enableVideoControls = (element: HTMLElement, enable = true) => {
@@ -25,4 +27,13 @@ export const getSectionId = (
     }
   });
   return sectionId;
+};
+
+export const confirmAction = (msg: string) => (event: any) => {
+  const answer = confirm(msg);
+  if (!answer) {
+    event.preventDefault();
+    return false;
+  }
+  return true;
 };

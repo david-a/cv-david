@@ -27,8 +27,8 @@ const Intro = (props: Props) => {
         Over 10 years of experience working in the web development industry,
         handling everything from Infrastructure architecture & DevOps, Backend
         scripts and APIs, to Frontend - UX, Design and Development.
-        <br />
         <span className="font-bold font-normal">
+          {" "}
           I'm building web apps and systems from scratch to the user screen.
         </span>
         {/* <a href={"assets/DavidAvikasisCV.pdf"} download>

@@ -8,6 +8,9 @@ import Portfolio from "../components/Portfolio";
 import { getSectionId } from "../utils/domUtils";
 import { debounce } from "lodash";
 import { useEffect, useState } from "react";
+import ContactRow from "../components/ContactRow";
+import Footer from "../components/Footer";
+import Trivia from "../components/Trivia";
 
 const IndexPage: React.FC<PageProps> = ({ data }) => {
   const [selectedSectionId, setSelectedSectionId] = useState("home");
@@ -53,7 +56,11 @@ const IndexPage: React.FC<PageProps> = ({ data }) => {
         <section id="portfolio" className="pb-24">
           <Portfolio />
         </section>
+        <section id="trivia">
+          <Trivia />
+        </section>
       </main>
+      <Footer></Footer>
     </div>
   );
 };

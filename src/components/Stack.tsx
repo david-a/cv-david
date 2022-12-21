@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as SimpleIcons from "react-icons/si";
 import { tokenize } from "../utils/stringUtils";
-import { enableVideoControls, setElementColor } from "../utils/domUtils";
+import { setElementColor } from "../utils/domUtils";
 
 type StackItem = {
   key: string;
@@ -144,6 +144,7 @@ const ALL_ITEMS: Partial<StackItem>[] = [
   {
     title: "React.js",
     icon: "SiReact",
+    color: "#61dafb",
     keywords: [
       "react.js",
       "react",
@@ -170,6 +171,7 @@ const ALL_ITEMS: Partial<StackItem>[] = [
   {
     title: "Angular",
     icon: "SiAngular",
+    color: "#dd0031",
     keywords: [
       "JavaScript",
       "TypeScript",
@@ -207,6 +209,7 @@ const ALL_ITEMS: Partial<StackItem>[] = [
   {
     title: "Redux",
     icon: "SiRedux",
+    color: "#764abc",
     keywords: [
       "JavaScript",
       "React",
@@ -233,38 +236,47 @@ const ALL_ITEMS: Partial<StackItem>[] = [
   {
     title: "Tailwind CSS",
     icon: "SiTailwindcss",
+    color: "#06b6d4",
   },
   {
     title: "MySQL",
     icon: "SiMysql",
+    color: "#00758f",
   },
   {
     title: "PostgreSQL",
     icon: "SiPostgresql",
+    color: "#336791",
   },
   {
     title: "MongoDB",
     icon: "SiMongodb",
+    color: "#47a248",
   },
   {
     title: "Redis",
     icon: "SiRedis",
+    color: "#d82c20",
   },
   {
     title: "GraphQL",
     icon: "SiGraphql",
+    color: "#e535ab",
   },
   {
     title: "AWS",
     icon: "SiAmazonaws",
+    color: "#ff9600",
   },
   {
     title: "DigitalOcean",
     icon: "SiDigitalocean",
+    color: "#0080ff",
   },
   {
     title: "Microsoft Azure",
     icon: "SiMicrosoftazure",
+    color: "#0089d6",
   },
 ];
 
@@ -278,7 +290,11 @@ const Stack = (props: Props) => {
 
   const fetchItems = (): StackItem[] => {
     return ALL_ITEMS.map((item) => {
-      return { ...item, key: tokenize(item.title!) } as StackItem;
+      return {
+        ...item,
+        key: tokenize(item.title!),
+        keywords: item.keywords || [],
+      } as StackItem;
     });
   };
 
@@ -298,17 +314,14 @@ const Stack = (props: Props) => {
                 title={item.title}
                 data-color={item.color}
                 className={
-                  "tooltip col-span-1 items-center transition duration-200 text-black z-10"
+                  "tooltip col-span-1 items-center transition duration-100 text-black z-10"
                 }
                 onMouseEnter={(event) => {
                   // Forced to use js events instead of tailwind's hover:text-[#color] since it seems not to support dynamic colors
-                  enableVideoControls(event.currentTarget as HTMLElement);
+                  setElementColor(event.currentTarget as HTMLElement);
                 }}
                 onMouseLeave={(event) => {
-                  enableVideoControls(
-                    event.currentTarget as HTMLElement,
-                    false
-                  );
+                  setElementColor(event.currentTarget as HTMLElement, "black");
                 }}
               >
                 {React.createElement((SimpleIcons as any)[item.icon], {

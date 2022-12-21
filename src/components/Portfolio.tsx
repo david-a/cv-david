@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { isExternalVideo, tokenize } from "../utils/stringUtils";
+import {
+  getRepoPlatform,
+  isExternalVideo,
+  tokenize,
+} from "../utils/stringUtils";
 import * as SimpleIcons from "react-icons/si";
 import { Indexable } from "../interfaces/Indexable";
 import { PORTFOLIO_ART } from "../constants/portfolioArt";
@@ -11,6 +15,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 import MediaPreview from "./MediaPreview";
 import Lightbox from "./Lightbox";
+import { confirmAction } from "../utils/domUtils";
 
 type PortfolioItem = {
   key: string;
@@ -159,6 +164,7 @@ const Portfolio = (props: Props) => {
         ...item,
         key: tokenize(item.title!),
         preview,
+        keywords: item.keywords || [],
       } as PortfolioItem;
     });
   };
@@ -188,6 +194,11 @@ const Portfolio = (props: Props) => {
                     target="_blank"
                     className="w-[70%] rounded bg-white px-2 tooltip"
                     title="Check it out!"
+                    aria-label="Live website of this project"
+                    aria-describedby="Go to the live site of this project"
+                    onClick={confirmAction(
+                      "This link will open an external website in a new tab. Are you sure?"
+                    )}
                   >
                     {item.liveUrl}
                   </a>
@@ -200,6 +211,13 @@ const Portfolio = (props: Props) => {
                     target="_blank"
                     className="tooltip"
                     title="Watch the Source Code"
+                    aria-label="Source Code"
+                    aria-describedby="Watch the Source Code"
+                    onClick={confirmAction(
+                      "This link will open " +
+                        getRepoPlatform(item.repoUrl) +
+                        " in a new tab. Are you sure?"
+                    )}
                   >
                     <Icon className="h-6" />
                   </a>
