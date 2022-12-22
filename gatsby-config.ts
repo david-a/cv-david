@@ -51,6 +51,7 @@ const config: GatsbyConfig = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         environment: process.env.CONTENTFUL_ENVIRONMENT,
         downloadLocal: true,
+        enableTags: true,
       },
     },
 

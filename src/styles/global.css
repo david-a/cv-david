@@ -35,11 +35,11 @@
   bottom: auto;
 }
 
-#stack .tooltip:before {
+.tooltip-no-frame.tooltip:before {
   font-size: 1.2rem;
   background: none;
   color: black;
-  top: 140%;
+  top: 100%;
   bottom: auto;
 }
 
@@ -48,7 +48,7 @@
 }
 
 @media (hover: none) {
-  #stack .tooltip:before {
+  .tooltip-no-frame.tooltip:before {
     display: block;
   }
 }
