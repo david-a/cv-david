@@ -100,7 +100,6 @@ export const getColor = (
         (color) => getTextColor(COLORS[color]) === contrast
       );
     }
-    console.log("seed", seed);
     return seed
       ? COLORS[encodeStringToNumberInRange(seed, colors.length - 1)]
       : COLORS[colors[Math.floor(Math.random() * colors.length)]];

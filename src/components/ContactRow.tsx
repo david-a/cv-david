@@ -10,9 +10,11 @@ import { CONTACT_ITEMS } from "../constants/mockDB";
 
 type Props = {
   colorsOnHoverWithDefaultColor?: boolean | string;
-  size?: number;
+  size?: number | string;
   toolTipPosition?: "top" | "bottom";
   toolTipColor?: "white" | "black";
+  toolTipDisabled?: boolean;
+  messagePosition?: "right" | "bottom";
 };
 
 const ContactRow = ({
@@ -20,6 +22,8 @@ const ContactRow = ({
   size = 16,
   toolTipPosition = "top",
   toolTipColor = "black",
+  toolTipDisabled = false,
+  messagePosition = "right",
 }: Props) => {
   const query = useStaticQuery(graphql`
     query AllContactItems {
@@ -56,7 +60,7 @@ const ContactRow = ({
   };
 
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <div className="flex flex-row gap-2 px-2 py-1 items-center relative">
       {rawItems.map((item) => {
         const alt = item.tooltip || `Contact me via ${item.title}`;
         const key = item.id || tokenize(item.title!);
@@ -65,7 +69,6 @@ const ContactRow = ({
           (HeroIcons2 as Indexable)[item.iconName!];
         const confirmMessage =
           "This link will open " + item.title + ". Are you sure?";
-        console.log("COLOR", item.color, item);
         return (
           <a
             key={key}
@@ -82,10 +85,18 @@ const ContactRow = ({
               undefined
             }
             download={!!item.file}
-            style={colorsOnHoverWithDefaultColor ? {} : { color: item.color! }}
+            style={
+              colorsOnHoverWithDefaultColor
+                ? { color: defaultIconColor }
+                : { color: item.color! }
+            }
             data-color={item.color!}
             className={
-              "transition duration-100 tooltip" +
+              "contact-item transition duration-100" +
+              (colorsOnHoverWithDefaultColor
+                ? ""
+                : " opacity-80 hover:opacity-100") +
+              (toolTipDisabled ? "" : " tooltip") +
               (toolTipPosition === "bottom" ? " tooltip-bottom" : "") +
               (toolTipColor === "white" ? " tooltip-black-on-white" : "")
             }
@@ -110,7 +121,14 @@ const ContactRow = ({
           </a>
         );
       })}
-      <span className="text-gray">{message}</span>
+      <span
+        className={
+          "text-gray whitespace-nowrap absolute" +
+          (messagePosition === "bottom" ? " top-full" : " left-full")
+        }
+      >
+        {message}
+      </span>
     </div>
   );
 };

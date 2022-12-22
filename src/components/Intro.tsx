@@ -1,5 +1,7 @@
 import { StaticImage } from "gatsby-plugin-image";
 import React from "react";
+import ContactBox from "./ContactBox";
+import ContactRow from "./ContactRow";
 
 type Props = {};
 
@@ -31,10 +33,10 @@ const Intro = (props: Props) => {
           {" "}
           I'm building web apps and systems from scratch to the user screen.
         </span>
-        {/* <a href={"assets/DavidAvikasisCV.pdf"} download>
-          Download CV
-        </a> */}
       </p>
+      <div className="flex flex-row justify-between">
+        <ContactBox />
+      </div>
     </>
   );
 };

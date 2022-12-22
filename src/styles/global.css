@@ -11,7 +11,7 @@
 .tooltip:before {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 100%;
+  bottom: 140%;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -31,7 +31,7 @@
 }
 
 .tooltip-bottom.tooltip:before {
-  top: 100%;
+  top: 140%;
   bottom: auto;
 }
 
@@ -39,7 +39,7 @@
   font-size: 1.2rem;
   background: none;
   color: black;
-  top: 100%;
+  top: 140%;
   bottom: auto;
 }
 
@@ -140,7 +140,7 @@
     background-position: 0 -10px;
     font-size: 30px;
     line-height: 40.5px;
-    padding: 0 120px;
+    padding: 0 140px;
   }
 
   .paper-content {
