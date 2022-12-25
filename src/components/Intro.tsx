@@ -1,18 +1,27 @@
-import { StaticImage } from "gatsby-plugin-image";
+import { graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
 import React from "react";
 import ContactBox from "./ContactBox";
-import ContactRow from "./ContactRow";
 
 type Props = {};
 
-const Intro = (props: Props) => {
+const Intro = (Props: Props) => {
+  const query = useStaticQuery(graphql`
+    query DeddyAvatar {
+      contentfulAsset(title: { eq: "Deddy - Avatar" }) {
+        title
+        gatsbyImageData
+      }
+    }
+  `);
+  const avatar = query.contentfulAsset.gatsbyImageData;
+
   return (
     <>
       <div className="py-4 flex flex-row items-end gap-10">
-        <StaticImage
+        <GatsbyImage
           className="max-w-sm max-w-[40%] md:max-w-[25%]"
-          layout="constrained"
-          src="../images/deddy-broadway.jpg"
+          image={avatar}
           alt="It's me, David!"
           title="It's me, David!"
         />

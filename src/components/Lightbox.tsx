@@ -57,7 +57,7 @@ const Lightbox = ({
       className="fixed inset-0 flex flex-col items-center justify-center bg-black/30 z-50"
       onClick={(handleClose || defaultFunc) as MouseEventHandler}
     >
-      <div className="relative bg-white rounded-lg shadow-lg p-4 max-w-[70%] w-full">
+      <div className="relative bg-white rounded-lg shadow-lg p-4 max-w-[70%]">
         {children}
         <button
           className="absolute -top-4 -right-16 rounded-full bg-gray-dark hover:bg-gray-darker py-2 px-4 m-2 font-mono text-white"

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as SimpleIcons from "react-icons/si";
+import * as HeroIcons2 from "react-icons/hi2";
 import { tokenize } from "../utils/stringUtils";
 import { setElementColor } from "../utils/domUtils";
 import { graphql, useStaticQuery } from "gatsby";
 import { STACK_ITEMS } from "../constants/mockDB";
+import { Indexable } from "../interfaces/Indexable";
 
 type Props = {};
 
@@ -40,8 +42,12 @@ const Stack = (props: Props) => {
       <div>
         <div className="max-w-7xl mx-auto px-16">
           <div className="flex flex-row flex-wrap justify-center gap-10 py-20">
-            {allStackItems.map((item) =>
-              !item.iconName ? undefined : (
+            {allStackItems.map((item) => {
+              const Icon =
+                (SimpleIcons as Indexable)[item.iconName!] ||
+                (HeroIcons2 as Indexable)[item.iconName!];
+
+              return !item.iconName ? undefined : (
                 <div
                   key={item.id || tokenize(item.title!)}
                   aria-label={item.title!}
@@ -62,13 +68,10 @@ const Stack = (props: Props) => {
                     );
                   }}
                 >
-                  {React.createElement((SimpleIcons as any)[item.iconName!], {
-                    // className: "h-10",
-                    size: "5rem",
-                  })}
+                  <Icon size="5rem" />
                 </div>
-              )
-            )}
+              );
+            })}
           </div>
         </div>
       </div>
