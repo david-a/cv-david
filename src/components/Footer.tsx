@@ -8,7 +8,8 @@ const Footer = (props: Props) => {
     <footer>
       <div className="flex flex-col items-center justify-center w-full h-full bg-black text-white py-4 gap-2">
         <p className="text-sm">
-          Made with <span className="text-red-500">❤️</span> by me
+          Designed & developed with <span className="text-red-500">❤️</span> by
+          David Avikasis
         </p>
         <ContactRow toolTipColor="white" />
         <p className="text-sm">App & Beyond © {new Date().getFullYear()}</p>

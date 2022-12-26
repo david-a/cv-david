@@ -66,7 +66,7 @@ export const getYoutubeSrc = (urlRaw: string) => {
 };
 
 export const getDomainFromUrl = (url: string) => {
-  const domain = url.split("/")[2];
+  const domain = url.split("/")[2] || "";
   return domain.includes("www.") ? domain.split("www.")[1] : domain;
 };
 
@@ -100,12 +100,13 @@ export const getColor = (
         (color) => getTextColor(COLORS[color]) === contrast
       );
     }
+
     return seed
-      ? COLORS[encodeStringToNumberInRange(seed, colors.length - 1)]
+      ? COLORS[colors[encodeStringToNumberInRange(seed, colors.length - 1)]]
       : COLORS[colors[Math.floor(Math.random() * colors.length)]];
   }
 
-  return COLORS[name] || "black";
+  return COLORS[name] || name || "black";
 };
 
 export const getRgbFromHex = (hex: string) => {
