@@ -89,7 +89,7 @@ const Portfolio = (props: Props) => {
                   <a
                     href={item.liveProjectUrl}
                     target="_blank"
-                    className="w-[70%] rounded bg-white px-2 tooltip"
+                    className="w-[80%] rounded bg-white px-2 tooltip"
                     data-tooltip="Check it out!"
                     aria-label="Live website of this project"
                     aria-describedby="Go to the live site of this project"
