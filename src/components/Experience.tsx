@@ -1,7 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
 import React from "react";
+import { CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS } from "../constants/contentfulSettings";
 import { formatDateMonthYear, getDateDiff } from "../utils/datetimeUtils";
+import { confirmAction } from "../utils/domUtils";
+import { getDomainFromUrl } from "../utils/stringUtils";
 
 type Props = {};
 
@@ -17,7 +21,7 @@ const Experience = (props: Props) => {
           company
           companyUrl
           description {
-            description
+            raw
           }
           logo {
             gatsbyImageData
@@ -40,69 +44,118 @@ const Experience = (props: Props) => {
       <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold font-display text-green !leading-[0.6] font-mono mb-10">
         // WORK EXPERIENCE
       </h2>
-      {allExperienceItems?.map((item) => (
-        <div
-          key={item.id}
-          className="flex flex-wrap flex-row lg:grid lg:grid-cols-[2fr_0.5fr_6fr] items-center text-white  mb-20"
-        >
-          <div className="font-mono text-xl tracking-tight font-gray-dark">
-            (
-            <span className="text-yellow whitespace-nowrap">
-              "{formatDateMonthYear(item.startDate!)}"
-            </span>
-            ,{" "}
-            {!item.endDate ? (
-              <span className={"text-gray"}>Present</span>
-            ) : (
-              <span className={"text-yellow whitespace-nowrap"}>
-                "{formatDateMonthYear(item.endDate)}"
+      {allExperienceItems?.map((item) => {
+        const Icon = item.logo && (
+          <GatsbyImage
+            objectFit="contain"
+            image={item.logo?.gatsbyImageData!}
+            alt={item.company!}
+          />
+        );
+        const alt = `${item.company} Website`;
+        return (
+          <div
+            key={item.id}
+            className="flex flex-wrap flex-row lg:grid lg:grid-cols-[2fr_0.5fr_6fr] items-center text-white  mb-20"
+          >
+            <div className="font-mono text-xl tracking-tight font-gray-dark">
+              (
+              <span className="text-yellow whitespace-nowrap">
+                "{formatDateMonthYear(item.startDate!)}"
               </span>
-            )}
-            ):{" "}
-            <span className="whitespace-nowrap">
-              {"<" +
-                getDateDiff(
-                  item.startDate!,
-                  !item.endDate ? new Date() : item.endDate
-                ) +
-                " Years>"}
-            </span>
-          </div>
-          <div className="font-mono justify-self-center text-3xl lg:text-5xl px-2">
-            {"=>"}
-          </div>
-          <div className="grid grid-cols-[0.5fr_5fr_0.5fr] items-center">
-            <span className="font-mono text-[15rem] -mt-12 scale-y-150">
-              {"{"}
-            </span>
-            <div className="font-mono">
-              <div className="flex flex-row items-start">
-                <div className="flex items-center justify-center w-20 mr-6 p-4">
-                  {item.logo && (
-                    <GatsbyImage
-                      objectFit="contain"
-                      image={item.logo?.gatsbyImageData!}
-                      alt={item.company!}
-                    />
-                  )}
+              ,{" "}
+              {!item.endDate ? (
+                <span className={"text-gray"}>Present</span>
+              ) : (
+                <span className={"text-yellow whitespace-nowrap"}>
+                  "{formatDateMonthYear(item.endDate)}"
+                </span>
+              )}
+              ):{" "}
+              <span className="whitespace-nowrap">
+                {"<" +
+                  getDateDiff(
+                    item.startDate!,
+                    !item.endDate ? new Date() : item.endDate
+                  ) +
+                  " Years>"}
+              </span>
+            </div>
+            <div className="font-mono justify-self-center text-3xl lg:text-5xl px-2">
+              {"=>"}
+            </div>
+            <div className="grid grid-cols-[0.5fr_5fr_0.5fr] items-center">
+              <span className="font-mono text-[15rem] -mt-12 scale-y-150">
+                {"{"}
+              </span>
+              <div className="font-mono">
+                <div className="flex flex-row items-start">
+                  <div className="flex items-center justify-center w-20 mr-6 p-4">
+                    {Icon &&
+                      (item.companyUrl ? (
+                        <a
+                          className="opacity-90 hover:opacity-100 transition-opacity duration-200 tooltip"
+                          href={item.companyUrl}
+                          target="_blank"
+                          data-tooltip={
+                            "Open on " + getDomainFromUrl(item.companyUrl)
+                          }
+                          aria-label={alt}
+                          aria-describedby={alt}
+                          onClick={confirmAction(
+                            "This link will open an external website in a new tab. Are you sure?"
+                          )}
+                        >
+                          {Icon}
+                        </a>
+                      ) : (
+                        Icon
+                      ))}
+                  </div>
+                  <div className="flex-1 py-2">
+                    <h2 className="text-xl xl:text-2xl font-bold text-red-light">
+                      {item.title}
+                    </h2>
+
+                    {item.companyUrl ? (
+                      <a
+                        className="opacity-90 hover:opacity-100 hover:underline transition-opacity duration-200 tooltip text-xl xl:text-2xl text-gray"
+                        href={item.companyUrl}
+                        target="_blank"
+                        data-tooltip={
+                          "Open on " + getDomainFromUrl(item.companyUrl)
+                        }
+                        aria-label={alt}
+                        aria-describedby={alt}
+                        onClick={confirmAction(
+                          "This link will open an external website in a new tab. Are you sure?"
+                        )}
+                      >
+                        <h3>{item.company}</h3>
+                      </a>
+                    ) : (
+                      <h3 className="text-xl xl:text-2xl text-gray">
+                        {item.company}
+                      </h3>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-1 py-2">
-                  <h2 className="text-xl xl:text-2xl font-bold text-red-light">
-                    {item.title}
-                  </h2>
-                  <h3 className="text-xl xl:text-2xl text-gray">
-                    {item.company}
-                  </h3>
+                <div className="p-4">
+                  {(item.description?.raw &&
+                    renderRichText(
+                      { raw: item.description?.raw } as any,
+                      CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS as any
+                    )) ||
+                    ""}
                 </div>
               </div>
-              <div className="p-4">{item.description?.description || ""}</div>
+              <span className="font-mono weight-light text-[15rem] -mt-12 scale-y-150">
+                {"}"}
+              </span>
             </div>
-            <span className="font-mono weight-light text-[15rem] -mt-12 scale-y-150">
-              {"}"}
-            </span>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

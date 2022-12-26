@@ -3,8 +3,8 @@ import React from "react";
 import { confirmAction } from "../utils/domUtils";
 import { getColor, getDomainFromUrl } from "../utils/stringUtils";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
-import { INLINES, MARKS } from "@contentful/rich-text-types";
 import { graphql, useStaticQuery } from "gatsby";
+import { CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS } from "../constants/contentfulSettings";
 
 type Props = {};
 
@@ -29,39 +29,6 @@ const Trivia = () => {
   const allTriviaItem: Queries.ContentfulTriviaItem[] =
     query?.allContentfulTriviaItem?.nodes;
 
-  const options = {
-    renderMark: {
-      [MARKS.BOLD]: (text: string) => <b className="font-bold">{text}</b>,
-      [MARKS.CODE]: (text: string) => <span className="font-mono">{text}</span>,
-    },
-    renderNode: {
-      [INLINES.HYPERLINK]: (node: any, children: any) => {
-        if (!children.length) return "";
-
-        const { uri } = node.data;
-        const [text, specificColor] = children[0].split("::");
-        const alt = "Link to " + text;
-        const color = getColor(specificColor || { contrast: "dark" });
-        return (
-          <a
-            className="opacity-70 hover:opacity-100 transition-opacity duration-200 text-[0.9em] mx-2 tooltip"
-            href={uri}
-            target="_blank"
-            data-tooltip={"Open on " + getDomainFromUrl(uri)}
-            aria-label={alt}
-            aria-describedby={alt}
-            onClick={confirmAction(
-              "This link will open an external website in a new tab. Are you sure?"
-            )}
-            style={{ color }}
-          >
-            {text}
-          </a>
-        );
-      },
-    },
-  };
-
   return (
     <div className="paper">
       <h1 className="px-20 text-xl sm:text-3xl font-mono"># Trivia Facts</h1>
@@ -72,7 +39,13 @@ const Trivia = () => {
             const { raw } = item.text as any;
             return (
               <li key={item.id} className="font-display">
-                <h3>{raw && renderRichText({ raw } as any, options as any)}</h3>
+                <h3>
+                  {raw &&
+                    renderRichText(
+                      { raw } as any,
+                      CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS as any
+                    )}
+                </h3>
               </li>
             );
           })}
