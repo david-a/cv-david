@@ -12,7 +12,7 @@ type Props = {};
 const Stack = (props: Props) => {
   const query = useStaticQuery(graphql`
     query AllStackItems {
-      allContentfulStackItem {
+      allContentfulStackItem(sort: { order: ASC }) {
         nodes {
           id
           metadata {

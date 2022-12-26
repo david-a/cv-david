@@ -315,6 +315,31 @@ export const STACK_ITEMS: Partial<Queries.ContentfulStackItem>[] = [
     iconName: "SiMicrosoftazure",
     color: "#0089d6",
   },
+  {
+    title: "Google Cloud",
+    iconName: "SiGooglecloud",
+    color: "#4285f4",
+  },
+  {
+    title: "Docker",
+    iconName: "SiDocker",
+    color: "#2496ed",
+  },
+  {
+    title: "Bash",
+    iconName: "SiGnubash",
+    color: "#4eaa25",
+  },
+  {
+    title: "Elasticsearch",
+    iconName: "SiElasticsearch",
+    color: "#005571",
+  },
+  {
+    title: "Serverless",
+    iconName: "SiServerless",
+    color: "#fd5750",
+  },
 ];
 
 // const PORTFOLIO_ITEMS: Partial<ContentfulPortfolioItem>[] = [

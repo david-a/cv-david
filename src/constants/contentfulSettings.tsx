@@ -22,7 +22,7 @@ export const CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS = {
         <a
           className={
             "opacity-70 hover:opacity-100 transition-opacity duration-200 tooltip" +
-            (text.startsWith("#") ? " text-[0.9em]" : "")
+            (text.startsWith("#") ? " text-[0.85em] font-display" : "")
           }
           href={uri}
           target="_blank"

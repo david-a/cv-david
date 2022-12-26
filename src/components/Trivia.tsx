@@ -38,7 +38,7 @@ const Trivia = () => {
           {allTriviaItem.map((item) => {
             const { raw } = item.text as any;
             return (
-              <li key={item.id} className="font-display">
+              <li key={item.id} className="font-sans">
                 <h3>
                   {raw &&
                     renderRichText(
