@@ -65,7 +65,7 @@ const Header = ({ selected }: Props) => {
         >
           <AnchorLink
             className="font-light text-xl md:text-2xl"
-            to={"/#stack"}
+            to={"/#home"}
             onAnchorLinkClick={() => setselectedSection("home")}
           >
             David Avikasis

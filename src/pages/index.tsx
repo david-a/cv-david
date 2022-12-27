@@ -83,7 +83,7 @@ export const Head: HeadFC<PageProps> = ({ data }) => {
         content={DEFAULT_META_DATA.og_description}
       />
       {ogImage && <meta property="og:image" content={ogImage} />}
-      {/* <meta property="og:url" content={DEFAULT_META_DATA.og_url} /> */}
+      <meta property="og:url" content={DEFAULT_META_DATA.og_url} />
       <meta property="og:type" content="website" />
     </>
   );
