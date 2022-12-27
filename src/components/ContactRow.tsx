@@ -58,7 +58,7 @@ const ContactRow = ({
     "inherit";
   const copyToClipboard = (subject: string, text: string) => (event: any) => {
     event.preventDefault();
-    sendEventToGoogleAnalytics("link", "click", "CopyToClipboard:" + subject);
+    // sendEventToGoogleAnalytics("link", "click", "CopyToClipboard:" + subject);
     navigator.clipboard.writeText(text);
     setMessage("Copied " + subject + " to clipboard!");
     setTimeout(() => setMessage(""), 3000);

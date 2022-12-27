@@ -30,14 +30,14 @@ export const getSectionId = (
 };
 
 export const confirmAction = (msg: string, label?: string) => (event: any) => {
-  label && sendEventToGoogleAnalytics("link", "click", label);
+  // label && sendEventToGoogleAnalytics("link", "click", label);
   const answer = confirm(msg);
   if (!answer) {
     event.preventDefault();
-    label && sendEventToGoogleAnalytics("link", "cancel", label);
+    // label && sendEventToGoogleAnalytics("link", "cancel", label);
     return false;
   }
-  label && sendEventToGoogleAnalytics("link", "approve", label);
+  // label && sendEventToGoogleAnalytics("link", "approve", label);
   return true;
 };
 
