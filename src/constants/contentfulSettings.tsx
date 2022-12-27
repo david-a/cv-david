@@ -30,7 +30,8 @@ export const CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS = {
           aria-label={alt}
           aria-describedby={alt}
           onClick={confirmAction(
-            "This link will open an external website in a new tab. Are you sure?"
+            "This link will open an external website in a new tab. Are you sure?",
+            "RichText:" + text
           )}
           style={{ color }}
         >

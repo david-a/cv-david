@@ -29,13 +29,29 @@ export const getSectionId = (
   return sectionId;
 };
 
-export const confirmAction = (msg: string) => (event: any) => {
+export const confirmAction = (msg: string, label?: string) => (event: any) => {
+  label && sendEventToGoogleAnalytics("link", "click", label);
   const answer = confirm(msg);
   if (!answer) {
     event.preventDefault();
+    label && sendEventToGoogleAnalytics("link", "cancel", label);
     return false;
   }
+  label && sendEventToGoogleAnalytics("link", "approve", label);
   return true;
+};
+
+export const sendEventToGoogleAnalytics = (
+  category: string,
+  action: string,
+  label: string
+) => {
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", action, {
+      event_category: category,
+      event_label: label,
+    });
+  }
 };
 
 export const isMobile =

@@ -100,7 +100,8 @@ const Portfolio = (props: Props) => {
                     aria-label="Live website of this project"
                     aria-describedby="Go to the live site of this project"
                     onClick={confirmAction(
-                      "This link will open an external website in a new tab. Are you sure?"
+                      "This link will open an external website in a new tab. Are you sure?",
+                      "Portfolio:Live:" + item.title
                     )}
                   >
                     {item.liveProjectUrl}
@@ -119,7 +120,8 @@ const Portfolio = (props: Props) => {
                     onClick={confirmAction(
                       "This link will open " +
                         getRepoPlatform(item.repositoryUrl) +
-                        " in a new tab. Are you sure?"
+                        " in a new tab. Are you sure?",
+                      "Portfolio:Source:" + item.title
                     )}
                   >
                     <Icon className="h-6" />

@@ -3,7 +3,11 @@ import * as SimpleIcons from "react-icons/si";
 import * as HeroIcons2 from "react-icons/hi2";
 
 import { Indexable } from "../interfaces/Indexable";
-import { confirmAction, setElementColor } from "../utils/domUtils";
+import {
+  confirmAction,
+  sendEventToGoogleAnalytics,
+  setElementColor,
+} from "../utils/domUtils";
 import { tokenize } from "../utils/stringUtils";
 import { graphql, useStaticQuery } from "gatsby";
 import { CONTACT_ITEMS } from "../constants/mockDB";
@@ -54,6 +58,7 @@ const ContactRow = ({
     "inherit";
   const copyToClipboard = (subject: string, text: string) => (event: any) => {
     event.preventDefault();
+    sendEventToGoogleAnalytics("link", "click", "CopyToClipboard:" + subject);
     navigator.clipboard.writeText(text);
     setMessage("Copied " + subject + " to clipboard!");
     setTimeout(() => setMessage(""), 3000);
@@ -81,7 +86,7 @@ const ContactRow = ({
               (!item.file &&
                 (item.copyToClipboard
                   ? copyToClipboard(item.title!, item.url!)
-                  : confirmAction(confirmMessage))) ||
+                  : confirmAction(confirmMessage, "Contact:" + item.title))) ||
               undefined
             }
             download={!!item.file}

@@ -4,7 +4,7 @@ import { renderRichText } from "gatsby-source-contentful/rich-text";
 import React from "react";
 import { CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS } from "../constants/contentfulSettings";
 import { formatDateMonthYear, getDateDiff } from "../utils/datetimeUtils";
-import { confirmAction } from "../utils/domUtils";
+import { confirmAction, sendEventToGoogleAnalytics } from "../utils/domUtils";
 import { getDomainFromUrl } from "../utils/stringUtils";
 
 type Props = {};
@@ -96,7 +96,8 @@ const Experience = (props: Props) => {
                           aria-label={alt}
                           aria-describedby={alt}
                           onClick={confirmAction(
-                            "This link will open an external website in a new tab. Are you sure?"
+                            "This link will open an external website in a new tab. Are you sure?",
+                            "Experience:Logo:" + item.company
                           )}
                         >
                           {Icon}
@@ -121,7 +122,8 @@ const Experience = (props: Props) => {
                         aria-label={alt}
                         aria-describedby={alt}
                         onClick={confirmAction(
-                          "This link will open an external website in a new tab. Are you sure?"
+                          "This link will open an external website in a new tab. Are you sure?",
+                          "Experience:Name:" + item.company
                         )}
                       >
                         <h3>{item.company}</h3>

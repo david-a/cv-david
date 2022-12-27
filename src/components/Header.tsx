@@ -1,5 +1,6 @@
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import React, { MouseEventHandler, useRef } from "react";
+import { sendEventToGoogleAnalytics } from "../utils/domUtils";
 import ContactRow from "./ContactRow";
 
 const links = ["home", "stack", "experience", "portfolio", "trivia"];
@@ -25,10 +26,13 @@ const Header = ({ selected }: Props) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const onAnchorLinkClick = (section: string) => () => {
-    isMenuOpen && toggleMenu();
-    setselectedSection(section);
-  };
+  const onAnchorLinkClick =
+    (section: string, shouldToggleMenu = true) =>
+    () => {
+      sendEventToGoogleAnalytics("anchor", "click", section);
+      shouldToggleMenu && isMenuOpen && toggleMenu();
+      setselectedSection(section);
+    };
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +70,7 @@ const Header = ({ selected }: Props) => {
           <AnchorLink
             className="font-light text-xl md:text-2xl"
             to={"/#home"}
-            onAnchorLinkClick={() => setselectedSection("home")}
+            onAnchorLinkClick={onAnchorLinkClick("home", false)}
           >
             David Avikasis
           </AnchorLink>

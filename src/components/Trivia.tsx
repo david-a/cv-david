@@ -1,7 +1,5 @@
 // A component which takes up a list of sentences in the form of {text, links?:[{text, link}]} and renders them as a list of sentences with links, in a trivia-card like designed container
 import React from "react";
-import { confirmAction } from "../utils/domUtils";
-import { getColor, getDomainFromUrl } from "../utils/stringUtils";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
 import { graphql, useStaticQuery } from "gatsby";
 import { CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS } from "../constants/contentfulSettings";
