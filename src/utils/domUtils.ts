@@ -39,7 +39,10 @@ export const confirmAction = (msg: string) => (event: any) => {
 };
 
 export const isMobile =
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ||
-  ("ontouchstart" in document.documentElement &&
+  (typeof navigator === "object" &&
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) ||
+  (typeof document === "object" &&
+    "ontouchstart" in document.documentElement &&
     navigator.userAgent.match(/Mobi/)) ||
-  window.matchMedia("only screen and (max-width: 760px)").matches;
+  (typeof window === "object" &&
+    window.matchMedia("only screen and (max-width: 768px)").matches);
