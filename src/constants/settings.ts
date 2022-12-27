@@ -25,6 +25,3 @@ export const DEFAULT_META_DATA = {
   og_url: process.env.URL,
   robots: "index, follow",
 };
-
-console.log("DEDDY: DEFAULT_META_DATA", DEFAULT_META_DATA);
-console.log("DEDDY: CONTENTFUL", process.env.CONTENTFUL_SPACE_ID);
