@@ -125,8 +125,8 @@ body {
   height: 100%;
   background-image: repeating-linear-gradient(white 0px, white 30px, teal 31px);
   background-position: 0 -7px;
-  font-size: 22px;
-  line-height: 32.9px;
+  font-size: 17px;
+  line-height: 32px;
   padding: 0 20px 0 66px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -142,6 +142,24 @@ body {
   }
 }
 
+@media (min-width: 768px) {
+  .paper-pattern {
+    background-image: repeating-linear-gradient(
+      white 0px,
+      white 35px,
+      teal 36px
+    );
+    background-position: 0 -9px;
+    font-size: 22px;
+    line-height: 36px;
+    padding: 0 100px;
+  }
+
+  .paper-content {
+    gap: 36px;
+  }
+}
+
 @media (min-width: 1024px) {
   .paper::before {
     left: 4rem;
@@ -153,13 +171,13 @@ body {
       white 40px,
       teal 41px
     );
-    background-position: 0 -10px;
-    font-size: 30px;
-    line-height: 40.7px;
+    background-position: 0 -6px;
+    font-size: 28px;
+    line-height: 41px;
     padding: 0 120px;
   }
 
   .paper-content {
-    gap: 40.5px;
+    gap: 41px;
   }
 }
