@@ -7,7 +7,8 @@ import { chooseRandomElement } from "../utils/arrayAndObjectUtils";
 import { graphql, useStaticQuery } from "gatsby";
 import MediaPreview from "./MediaPreview";
 import Lightbox from "./Lightbox";
-import { confirmAction } from "../utils/domUtils";
+import { confirmAction, isMobile } from "../utils/domUtils";
+import { PORTFOLIO_ART } from "../constants/mockDB";
 
 type Props = {};
 
@@ -41,6 +42,7 @@ const Portfolio = (props: Props) => {
       allContentfulPortfolioArt {
         nodes {
           name
+          mobileReady
           pattern {
             pattern
           }
@@ -51,29 +53,28 @@ const Portfolio = (props: Props) => {
   const allPortfolioItems: Queries.ContentfulPortfolioItem[] =
     query?.allContentfulPortfolioItem?.nodes;
   const allPortfolioArtPatterns: Queries.ContentfulPortfolioArt[] =
-    query?.allContentfulPortfolioArt?.nodes.map(
-      (node: Queries.ContentfulPortfolioArt) => node.pattern?.pattern
-    );
+    query?.allContentfulPortfolioArt?.nodes;
 
-  const [art] = useState(chooseRandomElement(allPortfolioArtPatterns));
+  const patterns = isMobile
+    ? allPortfolioArtPatterns.filter((pattern) => pattern.mobileReady)
+    : allPortfolioArtPatterns;
+  const [art] = useState(
+    patterns.length
+      ? chooseRandomElement(patterns).pattern.pattern
+      : PORTFOLIO_ART[0]
+  );
 
   const [lightbox, setLightbox] = useState<string>();
   const toggleLightbox = (contentId?: string) => () => setLightbox(contentId);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full">
-      <div className="w-full bg-gray-light py-2">
-        <pre className="text-center font-mono text-2xs md:text-xs 2xl:text-base overflow-x-auto pb-8 pt-4">
+    <div className="flex flex-col items-center justify-center w-full h-full overflow-x-hidden">
+      <div className="w-full bg-gray-light py-2 mb-10 md:mb-4">
+        <pre className="text-center font-mono text-3xs md:text-xs 2xl:text-base overflow-x-auto pb-4 md:pb-8 pt-4">
           {art}
         </pre>
       </div>
-      {/* div with tailwind css classes to look like a macos window */}
-      <div
-        className="p-14 grid gap-8 font-sans font-light antialiased w-full justify-center"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(550px, 1fr))",
-        }}
-      >
+      <div className="macos-window-container p-6 md:p-14 grid gap-8 font-sans font-light antialiased w-full justify-center">
         {allPortfolioItems.map((item) => {
           const Icon =
             (SimpleIcons as Indexable)[item.repositoryIconName!] ||
@@ -89,7 +90,7 @@ const Portfolio = (props: Props) => {
                   <a
                     href={item.liveProjectUrl}
                     target="_blank"
-                    className="w-[80%] rounded bg-white px-2 tooltip"
+                    className="w-[80%] rounded bg-white px-2 tooltip overflow-hidden"
                     data-tooltip="Check it out!"
                     aria-label="Live website of this project"
                     aria-describedby="Go to the live site of this project"
@@ -140,7 +141,7 @@ const Portfolio = (props: Props) => {
                         <div onClick={toggleLightbox(item.id)}>
                           <MediaPreview url={preview} />
                         </div>
-                        {lightbox === item.id && (
+                        {lightbox === item.id && !isMobile && (
                           <Lightbox
                             key={item.id}
                             handleClose={toggleLightbox()}

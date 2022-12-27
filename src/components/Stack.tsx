@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as SimpleIcons from "react-icons/si";
 import * as HeroIcons2 from "react-icons/hi2";
 import { tokenize } from "../utils/stringUtils";
-import { setElementColor } from "../utils/domUtils";
+import { isMobile, setElementColor } from "../utils/domUtils";
 import { graphql, useStaticQuery } from "gatsby";
 import { STACK_ITEMS } from "../constants/mockDB";
 import { Indexable } from "../interfaces/Indexable";
@@ -35,13 +35,13 @@ const Stack = (props: Props) => {
   return (
     <div className="bg-[#00c1ff22] min-h-[400px]">
       <div className="relative -z-20">
-        <h2 className="absolute lg:whitespace-nowrap top-20 opacity-20 mx-auto px-16 text-9xl lg:text-[15rem] xl:text-[20rem] font-bold font-display text-blue text-center">
+        <h2 className="absolute lg:whitespace-nowrap top-20 left-0 right-0 opacity-20 mx-auto px-8 md:px-16 text-8xl lg:text-[15rem] xl:text-[20rem] font-bold font-display text-blue text-center overflow-x-hidden">
           TECH STACK
         </h2>
       </div>
       <div>
-        <div className="max-w-7xl mx-auto px-16">
-          <div className="flex flex-row flex-wrap justify-center gap-10 py-20">
+        <div className="xl:max-w-7xl mx-auto px-8 md:px-16">
+          <div className="flex flex-row flex-wrap justify-center gap-6 md:gap-10 py-20">
             {allStackItems.map((item) => {
               const Icon =
                 (SimpleIcons as Indexable)[item.iconName!] ||
@@ -68,7 +68,7 @@ const Stack = (props: Props) => {
                     );
                   }}
                 >
-                  <Icon size="5rem" />
+                  <Icon size={isMobile ? "3rem" : "5rem"} />
                 </div>
               );
             })}

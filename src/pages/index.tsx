@@ -37,11 +37,11 @@ const IndexPage: React.FC<PageProps> = ({ data }) => {
 
   return (
     <div className="site-container antialiased">
-      <div style={{ height: 10 }}></div>
+      <div className="h-[10px] w-full"></div>
       <Header selected={selectedSectionId}></Header>
       <main id="home">
-        <section id="intro" className="py-24">
-          <div className="max-w-7xl mx-auto px-16">
+        <section id="intro" className="py-10 md:py-24">
+          <div className="xl:max-w-7xl mx-auto px-16">
             <Intro />
           </div>
         </section>
@@ -49,7 +49,7 @@ const IndexPage: React.FC<PageProps> = ({ data }) => {
           <Stack />
         </section>
         <section id="experience" className="pb-24">
-          <div className="max-w-7xl mx-auto">
+          <div className="xl:max-w-7xl mx-auto">
             <Experience />
           </div>
         </section>

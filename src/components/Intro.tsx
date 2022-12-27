@@ -18,9 +18,9 @@ const Intro = (Props: Props) => {
 
   return (
     <>
-      <div className="py-4 flex flex-row items-end gap-10">
+      <div className="py-4 flex flex-row flex-wrap items-end gap-10">
         <GatsbyImage
-          className="max-w-sm max-w-[40%] md:max-w-[25%]"
+          className="max-w-sm max-w-full sm:max-w-[25%]"
           image={avatar}
           alt="It's me, David!"
           title="It's me, David!"
@@ -34,7 +34,7 @@ const Intro = (Props: Props) => {
           Developer.
         </h1>
       </div>
-      <p className="text-3xl font-light text-justify">
+      <p className="md:text-3xl font-light text-justify">
         Over 10 years of experience working in the web development industry,
         handling everything from Infrastructure architecture & DevOps, Backend
         scripts and APIs, to Frontend - UX, Design and Development.

@@ -4,6 +4,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Domine:wght@400;700&family=Roboto+Mono:wght@100;200;400;600;700&family=Secular+One&family=Source+Sans+Pro:wght@200;400;700&display=swap");
 
+html,
+body {
+  overflow-x: hidden;
+  display: initial;
+}
+
 .tooltip {
   position: relative;
 }
@@ -39,7 +45,7 @@
   font-size: 1.2rem;
   background: none;
   color: black;
-  top: 100%;
+  top: 85%;
   bottom: auto;
 }
 
@@ -47,16 +53,26 @@
   display: block;
 }
 
-@media (hover: none) {
+/* @media (hover: none) {
   .tooltip-no-frame.tooltip:before {
     display: block;
   }
-}
+} */
 
 /* macos window like div */
+
+.macos-window-container {
+  grid-template-columns: repeat(auto-fit, minmax(80%, 1fr));
+}
+
+@media (min-width: 768px) {
+  .macos-window-container {
+    grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+  }
+}
+
 .macos-window {
   position: relative;
-  margin: 3em auto;
   background: linear-gradient(
     to bottom,
     #e0e1e3 2.2rem,
@@ -85,7 +101,7 @@
 }
 
 .paper {
-  width: 70%;
+  width: 80%;
   position: relative;
   margin: 0 auto;
   padding-top: 4rem;
@@ -107,10 +123,10 @@
 
 .paper-pattern {
   height: 100%;
-  background-image: repeating-linear-gradient(white 0px, white 25px, teal 26px);
+  background-image: repeating-linear-gradient(white 0px, white 30px, teal 31px);
   background-position: 0 -7px;
   font-size: 22px;
-  line-height: 25.9px;
+  line-height: 32.9px;
   padding: 0 20px 0 66px;
   overflow-x: auto;
   overflow-y: hidden;

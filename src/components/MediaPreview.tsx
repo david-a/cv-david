@@ -1,5 +1,6 @@
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile } from "../utils/domUtils";
 import {
   getExternalVideoThumb,
   getYoutubeSrc,
@@ -35,7 +36,7 @@ const MediaPreview = ({ url, alt = "" }: Props) => {
         if (videoRef?.current) {
           if (isExternalVideo(url)) {
             const ref = videoRef.current as any;
-            if (entries[0].isIntersecting) {
+            if (entries[0].isIntersecting && !isMobile) {
               ref?.contentWindow?.postMessage(
                 '{"event":"command","func":"mute","args":""}',
                 "*"
@@ -53,7 +54,7 @@ const MediaPreview = ({ url, alt = "" }: Props) => {
             }
           } else {
             const ref = videoRef.current as HTMLVideoElement;
-            if (entries[0].isIntersecting) {
+            if (entries[0].isIntersecting && !isMobile) {
               ref.play();
             } else {
               ref.pause();

@@ -1,16 +1,17 @@
 import { AnchorLink } from "gatsby-plugin-anchor-links";
-import React from "react";
+import React, { MouseEventHandler, useRef } from "react";
 import ContactRow from "./ContactRow";
+
+const links = ["home", "stack", "experience", "portfolio", "trivia"];
 
 type Props = {
   selected: string;
 };
 
-const links = ["home", "stack", "experience", "portfolio", "trivia"];
-
 const Header = ({ selected }: Props) => {
   const verifiedSection = () => (selected === "intro" ? "home" : selected);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [selectedSection, setselectedSection] = React.useState(
     verifiedSection()
   );
@@ -18,6 +19,16 @@ const Header = ({ selected }: Props) => {
   React.useEffect(() => {
     setselectedSection(verifiedSection());
   }, [selected]);
+
+  const toggleMenu = (event?: any) => {
+    event?.preventDefault();
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const onAnchorLinkClick = (section: string) => () => {
+    isMenuOpen && toggleMenu();
+    setselectedSection(section);
+  };
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -37,29 +48,73 @@ const Header = ({ selected }: Props) => {
   return (
     <header
       className={
-        "sticky py-1 top-0 bg-white z-50 " + (isScrolled ? "shadow" : "")
+        "sticky py-1 top-0 left-0 right-0 bg-white z-40 " +
+        (isScrolled ? "shadow" : "")
       }
     >
-      <div className="flex justify-between my-2 max-w-7xl mx-auto px-16">
-        <div className="flex flex-row items-center gap-4">
-          <p className="font-light text-base md:text-2xl">David Avikasis</p>
+      <div
+        className={
+          "flex justify-between text-center my-2 xl:max-w-7xl mx-auto px-4 md:px-16" +
+          (isMenuOpen ? " flex-col" : "")
+        }
+      >
+        <div
+          className={
+            "flex-row items-center gap-4" + (isMenuOpen ? " hidden" : " flex")
+          }
+        >
+          <AnchorLink
+            className="font-light text-xl md:text-2xl"
+            to={"/#stack"}
+            onAnchorLinkClick={() => setselectedSection("home")}
+          >
+            David Avikasis
+          </AnchorLink>
           <ContactRow toolTipPosition="bottom" colorsOnHoverWithDefaultColor />
         </div>
-        <nav className="flex flex-row gap-2">
-          {links.map((link) => (
-            <AnchorLink
-              className={
-                "font-light text-base md:text-2xl hover:underline hover:font-normal" +
-                (selectedSection === link ? " font-normal underline" : "")
-              }
-              to={"/#" + link}
-              onAnchorLinkClick={() => setselectedSection(link)}
-              key={link}
+        <div>
+          <nav
+            className={
+              "md:flex md:flex-row flex-col gap-2" +
+              (isMenuOpen
+                ? " flex w-full h-screen absolute top-0 left-0 right-0 bg-white p-10"
+                : " hidden")
+            }
+          >
+            <a
+              className="md:hidden top-4 right-6 text-right text-4xl"
+              onClick={toggleMenu}
             >
-              {link}
-            </AnchorLink>
-          ))}
-        </nav>
+              &times;
+            </a>
+
+            {links.map((link) => (
+              <AnchorLink
+                className={
+                  "font-light text-4xl md:text-2xl hover:underline hover:font-normal" +
+                  (selectedSection === link ? " font-normal underline" : "")
+                }
+                to={"/#" + link}
+                onAnchorLinkClick={onAnchorLinkClick(link)}
+                key={link}
+              >
+                {link}
+              </AnchorLink>
+            ))}
+          </nav>
+          <div
+            className={
+              "flex items-center md:hidden" + (isMenuOpen ? " hidden" : "")
+            }
+          >
+            <button
+              className=" text-4xl font-bold opacity-70 hover:opacity-100 duration-300"
+              onClick={toggleMenu}
+            >
+              &#9776;
+            </button>
+          </div>
+        </div>
       </div>
     </header>
   );

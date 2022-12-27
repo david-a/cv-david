@@ -40,7 +40,7 @@ const Experience = (props: Props) => {
     query?.allContentfulExperienceItem?.nodes;
 
   return (
-    <div className="p-10 bg-dark rounded">
+    <div className="p-10 bg-dark rounded overflow-x-hidden">
       <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold font-display text-green !leading-[0.6] font-mono mb-10">
         // WORK EXPERIENCE
       </h2>
@@ -54,24 +54,21 @@ const Experience = (props: Props) => {
         );
         const alt = `${item.company} Website`;
         return (
-          <div
-            key={item.id}
-            className="flex flex-wrap flex-row lg:grid lg:grid-cols-[2fr_0.5fr_6fr] items-center text-white  mb-20"
-          >
-            <div className="font-mono text-xl tracking-tight font-gray-dark">
-              (
+          <div key={item.id} className="items-center text-white mb-20">
+            <div className="font-mono text-md md:text-xl tracking-tight font-gray-dark mb-4">
+              [
               <span className="text-yellow whitespace-nowrap">
-                "{formatDateMonthYear(item.startDate!)}"
+                {formatDateMonthYear(item.startDate!)}
               </span>
-              ,{" "}
+              {"~>"}
               {!item.endDate ? (
                 <span className={"text-gray"}>Present</span>
               ) : (
                 <span className={"text-yellow whitespace-nowrap"}>
-                  "{formatDateMonthYear(item.endDate)}"
+                  {formatDateMonthYear(item.endDate)}
                 </span>
               )}
-              ):{" "}
+              ]
               <span className="whitespace-nowrap">
                 {"<" +
                   getDateDiff(
@@ -80,17 +77,13 @@ const Experience = (props: Props) => {
                   ) +
                   " Years>"}
               </span>
+              <span className="text-gray">{"~/$"}</span>
             </div>
-            <div className="font-mono justify-self-center text-3xl lg:text-5xl px-2">
-              {"=>"}
-            </div>
-            <div className="grid grid-cols-[0.5fr_5fr_0.5fr] items-center">
-              <span className="font-mono text-[15rem] -mt-12 scale-y-150">
-                {"{"}
-              </span>
+
+            <div className="items-center">
               <div className="font-mono">
                 <div className="flex flex-row items-start">
-                  <div className="flex items-center justify-center w-20 mr-6 p-4">
+                  <div className="flex items-center justify-center w-20 md:mr-4 p-4">
                     {Icon &&
                       (item.companyUrl ? (
                         <a
@@ -149,9 +142,6 @@ const Experience = (props: Props) => {
                     ""}
                 </div>
               </div>
-              <span className="font-mono weight-light text-[15rem] -mt-12 scale-y-150">
-                {"}"}
-              </span>
             </div>
           </div>
         );

@@ -28,6 +28,13 @@ module.exports = {
             letterSpacing: "-0.01em",
           },
         ],
+        "3xs": [
+          "0.40rem",
+          {
+            lineHeight: "0.60rem",
+            letterSpacing: "-0.01em",
+          },
+        ],
       },
       dropShadow: {
         "3xl": "20px 35px 35px rgba(0, 0, 0, 0.25)",

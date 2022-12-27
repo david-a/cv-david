@@ -27,6 +27,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-plugin-anchor-links",
       options: {
         offset: -scrollOffset,
+        duration: 500,
       },
     },
     "gatsby-plugin-sitemap",

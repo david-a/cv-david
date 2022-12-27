@@ -31,9 +31,11 @@ const Trivia = () => {
 
   return (
     <div className="paper">
-      <h1 className="px-20 text-xl sm:text-3xl font-mono"># Trivia Facts</h1>
+      <h1 className="px-10 md:px-20 text-xl sm:text-3xl font-mono">
+        # Trivia Facts
+      </h1>
       <div className="paper-pattern">
-        <ol className="paper-content flex flex-col items-start justify-start list-decimal">
+        <ol className="paper-content flex flex-col items-start justify-start list-decimal w-full">
           <br />
           {allTriviaItem.map((item) => {
             const { raw } = item.text as any;
