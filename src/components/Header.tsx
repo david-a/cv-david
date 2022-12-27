@@ -29,7 +29,7 @@ const Header = ({ selected }: Props) => {
   const onAnchorLinkClick =
     (section: string, shouldToggleMenu = true) =>
     () => {
-      // sendEventToGoogleAnalytics("anchor", "click", section);
+      sendEventToGoogleAnalytics("anchor", "click", section);
       shouldToggleMenu && isMenuOpen && toggleMenu();
       setselectedSection(section);
     };
