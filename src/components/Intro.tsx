@@ -10,11 +10,16 @@ const Intro = (Props: Props) => {
     query DeddyAvatar {
       contentfulAsset(title: { eq: "Deddy - Avatar" }) {
         title
-        gatsbyImageData
+        localFile {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   `);
-  const avatar = query.contentfulAsset.gatsbyImageData;
+  const avatar =
+    query.contentfulAsset.localFile.childImageSharp.gatsbyImageData;
 
   return (
     <>

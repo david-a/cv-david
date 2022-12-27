@@ -28,7 +28,11 @@ const Portfolio = (props: Props) => {
           repositoryUrl
           previewMediaUrl
           previewMediaFile {
-            gatsbyImageData
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
             url
           }
           buzzWords
@@ -80,7 +84,8 @@ const Portfolio = (props: Props) => {
             (SimpleIcons as Indexable)[item.repositoryIconName!] ||
             (HeroIcons2 as Indexable)[item.repositoryIconName!];
           const preview =
-            item.previewMediaFile?.gatsbyImageData ||
+            item.previewMediaFile?.localFile?.childImageSharp
+              ?.gatsbyImageData ||
             item.previewMediaFile?.url ||
             item.previewMediaUrl;
           return (
