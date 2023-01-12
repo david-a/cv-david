@@ -36,7 +36,7 @@ const Intro = (Props: Props) => {
           <br />
           <span className="text-yellow">Ultra-FullStack</span>
           <br />
-          Developer.
+          Architect.
         </h1>
       </div>
       <p className="md:text-3xl font-light text-justify">
