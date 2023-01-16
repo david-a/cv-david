@@ -1,6 +1,8 @@
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
 import React from "react";
+import { CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS } from "../constants/contentfulSettings";
 import ContactBox from "./ContactBox";
 
 type Props = {};
@@ -16,10 +18,18 @@ const Intro = (Props: Props) => {
           }
         }
       }
+      contentfulHero(order: { eq: 1 }) {
+        heading
+        description {
+          raw
+        }
+        contactPhrase
+      }
     }
   `);
   const avatar =
     query.contentfulAsset.localFile.childImageSharp.gatsbyImageData;
+  const hero = query.contentfulHero;
 
   return (
     <>
@@ -30,26 +40,19 @@ const Intro = (Props: Props) => {
           alt="It's me, David!"
           title="It's me, David!"
         />
-        <h1 className="text-5xl lg:text-7xl xl:text-8xl font-bold font-display">
-          Hi! I'm <span className="text-blue">David</span>
-          , an
-          <br />
-          <span className="text-yellow">Ultra-FullStack</span>
-          <br />
-          Architect.
-        </h1>
+        <h1
+          className="text-5xl lg:text-7xl xl:text-8xl font-bold font-display"
+          dangerouslySetInnerHTML={{ __html: hero.heading }}
+        ></h1>
       </div>
-      <p className="md:text-3xl font-light text-justify">
-        Over 10 years of experience working in the web development industry,
-        handling everything from Infrastructure architecture & DevOps, Backend
-        scripts and APIs, to Frontend - UX, Design and Development.
-        <span className="font-bold font-normal">
-          {" "}
-          I'm building web apps and systems from scratch to the user screen.
-        </span>
-      </p>
+      <div className="md:text-3xl font-light text-justify">
+        {renderRichText(
+          { raw: hero.description.raw } as any,
+          CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS as any
+        )}
+      </div>
       <div className="flex flex-row justify-between">
-        <ContactBox />
+        <ContactBox contactPhrase={hero.contactPhrase} />
       </div>
     </>
   );

@@ -14,14 +14,14 @@ export const SUPPORTED_PHOTO_FILETYPES = [
 ];
 
 export const DEFAULT_META_DATA = {
-  title: "David Avikasis - CV",
+  title: "David - Web Solutions Architect",
   author: "David Avikasis",
   keywords:
-    "David, Fullstack, Developer, Consultant, Programmer, Programming, Graphic Design, UX, UI, Frontend, Backend, DevOps, Infrastructure, Database",
+    "David, Fullstack, Architect, Developer, Consultant, Programmer, Programming, Graphic Design, UX, UI, Frontend, Backend, DevOps, Infrastructure, Database",
   description:
-    "An Ultra-Fullstack Developer with over 10 years of experience working in the web development industry, handling everything from Infrastructure architecture & DevOps, Backendscripts and APIs, to Frontend - UX, Design and Development. Building web apps and systems from scratch to the user screen. This is my CV, a collection of my work and experience.",
+    "An Ultra-Fullstack Architect with over a decade of expertise in the web development field, I am well-versed in all aspects of the industry, including infrastructure, backend, frontend - design and development. Let me build a solution that exceeds your expectations.",
   og_description:
-    "An Ultra-Fullstack Developer with over 10 years of experience building web apps from scratch. This is my CV, a collection of my work and experience.",
+    "An Ultra-Fullstack Architect with over a decade of experience building web apps from scratch. This is my CV, a collection of my work and experience.",
   og_url: process.env.URL,
   robots: "index, follow",
 };

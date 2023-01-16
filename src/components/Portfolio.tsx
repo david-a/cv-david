@@ -78,7 +78,7 @@ const Portfolio = (props: Props) => {
           {art}
         </pre>
       </div>
-      <div className="macos-window-container p-6 md:p-14 grid gap-8 font-sans font-light antialiased w-full justify-center">
+      <div className="macos-window-container  md:p-14 grid gap-8 font-sans font-light antialiased w-[90%] justify-center">
         {allPortfolioItems.map((item) => {
           const Icon =
             (SimpleIcons as Indexable)[item.repositoryIconName!] ||
@@ -90,7 +90,7 @@ const Portfolio = (props: Props) => {
             item.previewMediaUrl;
           return (
             <div key={item.id} className="macos-window w-1/3">
-              <div className="flex flex-row justify-between w-[80%] mt-1 ml-[20%] h-6">
+              <div className="flex flex-row justify-between xl:w-[70%] w-[80%] mt-1 ml-[20%] h-6">
                 {item.liveProjectUrl ? (
                   <a
                     href={item.liveProjectUrl}

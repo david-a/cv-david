@@ -1,7 +1,7 @@
 import React from "react";
 import { confirmAction } from "../utils/domUtils";
 import { getColor, getDomainFromUrl } from "../utils/stringUtils";
-import { INLINES, MARKS } from "@contentful/rich-text-types";
+import { INLINES, MARKS, BLOCKS } from "@contentful/rich-text-types";
 
 export const CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS = {
   renderMark: {
@@ -9,6 +9,9 @@ export const CONTENTFUL_RICH_TEXT_GATSBY_OPTIONS = {
     [MARKS.CODE]: (text: string) => <span className="font-mono">{text}</span>,
   },
   renderNode: {
+    [BLOCKS.UL_LIST]: (node: any, children: any) => (
+      <ul className="mt-4">{children}</ul>
+    ),
     [INLINES.HYPERLINK]: (node: any, children: any) => {
       if (!children.length) return "";
 
