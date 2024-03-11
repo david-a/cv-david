@@ -8,7 +8,7 @@ const scrollOffset = 75;
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `David Avikasis - Ultra FullStack Developer`,
-    siteUrl: `https://www.appandbeyond.com`,
+    siteUrl: `https://deddy.dev`,
     description:
       "Software developer with a 10+ years of experience working in the web development industry. Ultra Full Stack Capabilities, handling everything from Infrastructure architecture & DevOps in practice, Backend scripts and APIs, to Frontend - UX, Design and Development - whether using vanilla languages or well established frameworks. Building apps and systems from scratch to the user.",
     scrollOffset,
