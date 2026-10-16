@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getRepoPlatform, tokenize } from "../utils/stringUtils";
-import * as SimpleIcons from "react-icons/si";
-import * as HeroIcons2 from "react-icons/hi2";
+import { getIcon } from "../utils/iconUtils";
 import { Indexable } from "../interfaces/Indexable";
 import { chooseRandomElement } from "../utils/arrayAndObjectUtils";
 import { graphql, useStaticQuery } from "gatsby";
@@ -81,8 +80,7 @@ const Portfolio = (props: Props) => {
       <div className="macos-window-container  md:p-14 grid gap-8 font-sans font-light antialiased w-[90%] justify-center">
         {allPortfolioItems.map((item) => {
           const Icon =
-            (SimpleIcons as Indexable)[item.repositoryIconName!] ||
-            (HeroIcons2 as Indexable)[item.repositoryIconName!];
+            getIcon(item.repositoryIconName);
           const preview =
             item.previewMediaFile?.localFile?.childImageSharp
               ?.gatsbyImageData ||
@@ -109,7 +107,7 @@ const Portfolio = (props: Props) => {
                 ) : (
                   <span></span>
                 )}
-                {item.repositoryUrl && item.repositoryIconName ? (
+                {item.repositoryUrl && Icon ? (
                   <a
                     href={item.repositoryUrl}
                     target="_blank"
