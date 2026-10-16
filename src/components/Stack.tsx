@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as SimpleIcons from "react-icons/si";
-import * as HeroIcons2 from "react-icons/hi2";
+import { getIcon } from "../utils/iconUtils";
 import { tokenize } from "../utils/stringUtils";
 import { isMobile, setElementColor } from "../utils/domUtils";
 import { graphql, useStaticQuery } from "gatsby";
@@ -44,10 +43,9 @@ const Stack = (props: Props) => {
           <div className="flex flex-row flex-wrap justify-center gap-6 md:gap-10 py-20">
             {allStackItems.map((item) => {
               const Icon =
-                (SimpleIcons as Indexable)[item.iconName!] ||
-                (HeroIcons2 as Indexable)[item.iconName!];
+                getIcon(item.iconName);
 
-              return !item.iconName ? undefined : (
+              return !Icon ? undefined : (
                 <div
                   key={item.id || tokenize(item.title!)}
                   aria-label={item.title!}

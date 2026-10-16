@@ -1,6 +1,5 @@
 import React from "react";
-import * as SimpleIcons from "react-icons/si";
-import * as HeroIcons2 from "react-icons/hi2";
+import { getIcon } from "../utils/iconUtils";
 
 import { Indexable } from "../interfaces/Indexable";
 import {
@@ -70,8 +69,7 @@ const ContactRow = ({
         const alt = item.tooltip || `Contact me via ${item.title}`;
         const key = item.id || tokenize(item.title!);
         const Icon =
-          (SimpleIcons as Indexable)[item.iconName!] ||
-          (HeroIcons2 as Indexable)[item.iconName!];
+          getIcon(item.iconName);
         const confirmMessage =
           "This link will open " + item.title + ". Are you sure?";
         return (
@@ -122,7 +120,7 @@ const ContactRow = ({
                 : undefined
             }
           >
-            <Icon size={size} alt={alt} />
+            {Icon ? <Icon size={size} alt={alt} /> : item.title}
           </a>
         );
       })}
